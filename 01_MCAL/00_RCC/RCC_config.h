@@ -13,7 +13,7 @@
  *	1. RCC_HSI			*
  *	2. RCC_HSE			*
  *	3. RCC_PLL 			*/
-#define RCC_SYS_CLK			RCC_PLL
+#define RCC_SYS_CLK			RCC_HSI
 
 /*	RCC_HSE OPTIONS:*
  *	1. RCC_HSE_CRYSTAL	*
@@ -23,7 +23,7 @@
 /*	RCC_PLL OPTIONS:*
  *	1. RCC_HSI			*
  *	2. RCC_HSE			*/
-#define RCC_PLL_SRC			RCC_HSE
+#define RCC_PLL_SRC			RCC_HSI
 
 
 #define RCC_PLLN_FACTOR		192		//192 ≤ PLLN ≤ 432

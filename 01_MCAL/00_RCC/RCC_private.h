@@ -42,10 +42,10 @@
 #define RCC_PLL_RDY				25
 #define RCC_PLLI2S_RDY			27
 
+#define RCC_HSUTRIM				3
+#define RCC_HSICAL				8
 #define RCC_HSE_BYP				18
 #define RCC_CSS_ON				19
-#define RCC_HSICAL				8
-#define RCC_HSUTRIM				3
 
 #define RCC_PLLM				0
 #define RCC_PLLN				6
@@ -54,6 +54,11 @@
 #define RCC_PLLSRC				22
 #define RCC_PLLQ				24
 
+#define RCC_SW0					0
+#define RCC_SW1					1
+#define RCC_HPRE				4
+#define RCC_PPRE1				10
+#define RCC_PPRE2				13
 #define RCC_MCO10				21
 #define RCC_MCO11				22
 #define RCC_MCO1PRE				24
@@ -61,9 +66,5 @@
 #define RCC_MCO20				30
 #define RCC_MCO21				31
 
-
-#define RCC_HPRE				4
-#define RCC_PPRE1				10
-#define RCC_PPRE2				13
 
 #endif	//RCC_PRIVATE_H

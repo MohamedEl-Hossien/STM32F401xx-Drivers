@@ -8,94 +8,75 @@
 #include "BIT_MATH.h"
 #include "STM32F401xx.h"
 #include "GPIO_private.h"
-#include "GPIO_config.h"
 #include "GPIO_interface.h"
+
+static GPIOx_RegDef_t* GPIOx_AStr[GPIO_NUMBERS]={MGPIOA,MGPIOB,MGPIOC,MGPIOD,MGPIOE,MGPIOH};
 
 void MGPIO_vSetPinMode(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8Mode)
 {
-	switch(Copy_u8PortName)
-	{
-	case GPIOA_PORT:	MGPIOA->MODER |= (Copy_u8Mode<<(2U*Copy_u8PinName)); break;
-	case GPIOB_PORT:    MGPIOB->MODER |= (Copy_u8Mode<<(2U*Copy_u8PinName)); break;
-	case GPIOC_PORT:    MGPIOC->MODER |= (Copy_u8Mode<<(2U*Copy_u8PinName)); break;
-	case GPIOD_PORT:    MGPIOD->MODER |= (Copy_u8Mode<<(2U*Copy_u8PinName)); break;
-	case GPIOE_PORT:    MGPIOE->MODER |= (Copy_u8Mode<<(2U*Copy_u8PinName)); break;
-	case GPIOH_PORT:    MGPIOH->MODER |= (Copy_u8Mode<<(2U*Copy_u8PinName)); break;
-	default: /*Wrong Choice*/ break;
-	}
+	GPIOx_AStr[Copy_u8PortName]->MODER |= (u32) (Copy_u8Mode<<(2U*Copy_u8PinName));
 }
 
-void MGPIO_vSetOutType(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8OutType)
+void MGPIO_vSetPinOutType(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8OutType)
 {
-	switch(Copy_u8PortName)
-	{
-	case GPIOA_PORT:	MGPIOA->OTYPER |= (Copy_u8OutType<<Copy_u8PinName); break;
-	case GPIOB_PORT:    MGPIOB->OTYPER |= (Copy_u8OutType<<Copy_u8PinName); break;
-	case GPIOC_PORT:    MGPIOC->OTYPER |= (Copy_u8OutType<<Copy_u8PinName); break;
-	case GPIOD_PORT:    MGPIOD->OTYPER |= (Copy_u8OutType<<Copy_u8PinName); break;
-	case GPIOE_PORT:    MGPIOE->OTYPER |= (Copy_u8OutType<<Copy_u8PinName); break;
-	case GPIOH_PORT:    MGPIOH->OTYPER |= (Copy_u8OutType<<Copy_u8PinName); break;
-	default: /*Wrong Choice*/ break;
-	}
+	GPIOx_AStr[Copy_u8PortName]->OTYPER |= (u32) (Copy_u8OutType<<Copy_u8PinName);
 }
 
-
-void MGPIO_vSetOutSpeed(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8OutSpeed)
+void MGPIO_vSetPinOutSpeed(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8OutSpeed)
 {
-	switch(Copy_u8PortName)
-	{
-	case GPIOA_PORT:	MGPIOA->OSPEEDR |= (Copy_u8OutSpeed<<(2U*Copy_u8PinName)); break;
-	case GPIOB_PORT:    MGPIOB->OSPEEDR |= (Copy_u8OutSpeed<<(2U*Copy_u8PinName)); break;
-	case GPIOC_PORT:    MGPIOC->OSPEEDR |= (Copy_u8OutSpeed<<(2U*Copy_u8PinName)); break;
-	case GPIOD_PORT:    MGPIOD->OSPEEDR |= (Copy_u8OutSpeed<<(2U*Copy_u8PinName)); break;
-	case GPIOE_PORT:    MGPIOE->OSPEEDR |= (Copy_u8OutSpeed<<(2U*Copy_u8PinName)); break;
-	case GPIOH_PORT:    MGPIOH->OSPEEDR |= (Copy_u8OutSpeed<<(2U*Copy_u8PinName)); break;
-	default: /*Wrong Choice*/ break;
-	}
+	GPIOx_AStr[Copy_u8PortName]->OSPEEDR |= (u32) (Copy_u8OutSpeed<<(2U*Copy_u8PinName));
 }
 
-
-void MGPIO_vSetOutPullType(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8PullType)
+void MGPIO_vSetInputPullType(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8PullType)
 {
-	switch(Copy_u8PortName)
-	{
-	case GPIOA_PORT:	MGPIOA->PUPDR |= (Copy_u8PullType<<(2U*Copy_u8PinName)); break;
-	case GPIOB_PORT:    MGPIOB->PUPDR |= (Copy_u8PullType<<(2U*Copy_u8PinName)); break;
-	case GPIOC_PORT:    MGPIOC->PUPDR |= (Copy_u8PullType<<(2U*Copy_u8PinName)); break;
-	case GPIOD_PORT:    MGPIOD->PUPDR |= (Copy_u8PullType<<(2U*Copy_u8PinName)); break;
-	case GPIOE_PORT:    MGPIOE->PUPDR |= (Copy_u8PullType<<(2U*Copy_u8PinName)); break;
-	case GPIOH_PORT:    MGPIOH->PUPDR |= (Copy_u8PullType<<(2U*Copy_u8PinName)); break;
-	default: /*Wrong Choice*/ break;
-	}
+	GPIOx_AStr[Copy_u8PortName]->PUPDR |= (u32) (Copy_u8PullType<<(2U*Copy_u8PinName));
 }
 
 u8 MGPIO_u8GetPinVal(u8 Copy_u8PortName,u8 Copy_u8PinName)
 {
-	u8 L_u8PinVal=0;
-	switch(Copy_u8PortName)
-	{
-	case GPIOA_PORT:	L_u8PinVal = GET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOB_PORT:    L_u8PinVal = GET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOC_PORT:    L_u8PinVal = GET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOD_PORT:    L_u8PinVal = GET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOE_PORT:    L_u8PinVal = GET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOH_PORT:    L_u8PinVal = GET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	default: /*Wrong Choice*/ break;
-	}
+	u8 L_u8PinVal = GET_BIT(GPIOx_AStr[Copy_u8PortName]->IDR,Copy_u8PinName);
 	return L_u8PinVal;
 }
 
-
 void MGPIO_vSetPinVal(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8OutVal)
 {
-	switch(Copy_u8PortName)
+	switch(Copy_u8OutVal)
 	{
-	case GPIOA_PORT:	SET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOB_PORT:    SET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOC_PORT:    SET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOD_PORT:    SET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOE_PORT:    SET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	case GPIOH_PORT:    SET_BIT(Copy_u8PortName,Copy_u8PinName); break;
-	default: /*Wrong Choice*/ break;
+	case OUTPUT_PIN_LOW:	GPIOx_AStr[Copy_u8PortName]->BSRR=(OUTPUT_PIN_HIGH<<(Copy_u8PinName+16)); break;
+	case OUTPUT_PIN_HIGH: 	GPIOx_AStr[Copy_u8PortName]->BSRR=(OUTPUT_PIN_HIGH<<Copy_u8PinName); break;
+	default: break;
 	}
 }
+
+
+void MGPIO_vLckPinConfg(u8 Copy_u8PortName,u8 Copy_u8PinName)
+{
+	SET_BIT(GPIOx_AStr[Copy_u8PortName]->LCKR,Copy_u8PinName);
+	SET_BIT(GPIOx_AStr[Copy_u8PortName]->LCKR,GPIO_LCKK_PIN);
+	while(!GET_BIT(GPIOx_AStr[Copy_u8PortName]->LCKR,GPIO_LCKK_PIN));
+}
+
+void MGPIO_vSetPinAltFunc(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8AltFunc)
+{
+	if(Copy_u8PinName<=7)
+	{
+		GPIOx_AStr[Copy_u8PortName]->AFRL |= (u32) (Copy_u8AltFunc<<(4*Copy_u8PinName));
+	}
+	else
+	{
+		Copy_u8PinName -=8;
+		GPIOx_AStr[Copy_u8PortName]->AFRH |= (u32) (Copy_u8AltFunc<<(4*Copy_u8PinName));
+	}
+}
+
+u32 MGPIO_u32GetPortVal(u8 Copy_u8PortName)
+{
+	u32 L_u32PortVal = GPIOx_AStr[Copy_u8PortName]->IDR;
+	return L_u32PortVal;
+}
+
+void MGPIO_vSetPortVal(u8 Copy_u8PortName,u32 Copy_u32OutVal)
+{
+	GPIOx_AStr[Copy_u8PortName]->ODR = Copy_u32OutVal;
+}
+

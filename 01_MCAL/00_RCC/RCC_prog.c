@@ -16,14 +16,14 @@ void MRCC_vInitSysClk(void)
 #if 	RCC_SYS_CLK == RCC_HSI
 
 	MRCC_vEnableClk(RCC_HSI);
-	MRCC->CFGR &= ~(0x11);
-	MRCC->CFGR |= RCC_HSI;
+	CLR_BIT(MRCC->CFGR,RCC_SW0);
+	CLR_BIT(MRCC->CFGR,RCC_SW1);
 
 #elif 	RCC_SYS_CLK ==	RCC_HSE
 
 		MRCC_vEnableClk(RCC_HSE);
-		MRCC->CFGR &= ~(0x11);
-		MRCC->CFGR |= RCC_HSE;
+		SET_BIT(MRCC->CFGR,RCC_SW0);
+		CLR_BIT(MRCC->CFGR,RCC_SW1);
 
 		#if RCC_HSE_SRC == RCC_HSE_CRYSTAL
 
@@ -39,20 +39,23 @@ void MRCC_vInitSysClk(void)
 
 #elif 	RCC_SYS_CLK ==  RCC_PLL
 
-		MRCC_vEnableClk(RCC_PLL);
-		MRCC->CFGR &= ~(0x11);
-		MRCC->CFGR |= RCC_PLL;
-
-
 		#if RCC_PLL_SRC == RCC_HSI
 
 			MRCC_vEnableClk(RCC_HSI);
 			MRCC_vPLLConf(RCC_HSI);
+			MRCC_vEnableClk(RCC_PLL);
+			CLR_BIT(MRCC->CFGR,RCC_SW0);
+			SET_BIT(MRCC->CFGR,RCC_SW1);
+
 
 		#elif RCC_PLL_SRC == RCC_HSE
 
 			MRCC_vEnableClk(RCC_HSE);
 			MRCC_vPLLConf(RCC_HSE);
+			MRCC_vEnableClk(RCC_PLL);
+			CLR_BIT(MRCC->CFGR,RCC_SW0);
+			SET_BIT(MRCC->CFGR,RCC_SW1);
+
 			#if RCC_HSE_SRC == RCC_HSE_CRYSTAL
 
 				CLR_BIT(MRCC->CR,RCC_HSE_BYP);

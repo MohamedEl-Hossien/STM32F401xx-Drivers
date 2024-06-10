@@ -22,6 +22,11 @@ typedef float 					f32;
 typedef double 					f64;
 typedef long double				f128;
 
+typedef enum{
+	 STD_NOT_OK = 0U,
+	 STD_OK = 1U
+}STD_STATE;
+
 #define NULL 					((void*)0)
 
 #endif

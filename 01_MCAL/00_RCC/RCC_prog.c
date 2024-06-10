@@ -18,10 +18,12 @@ void MRCC_vInitSysClk(void)
 	MRCC_vEnableClk(RCC_HSI);
 	CLR_BIT(MRCC->CFGR,RCC_SW0);
 	CLR_BIT(MRCC->CFGR,RCC_SW1);
+	while ((MRCC->CR & (1<<RCC_HSI_RDY)) == 0);
 
 #elif 	RCC_SYS_CLK ==	RCC_HSE
 
 		MRCC_vEnableClk(RCC_HSE);
+		while ((MRCC->CR & (1<<RCC_HSE_RDY)) == 0);
 		SET_BIT(MRCC->CFGR,RCC_SW0);
 		CLR_BIT(MRCC->CFGR,RCC_SW1);
 
@@ -44,6 +46,7 @@ void MRCC_vInitSysClk(void)
 			MRCC_vEnableClk(RCC_HSI);
 			MRCC_vPLLConf(RCC_HSI);
 			MRCC_vEnableClk(RCC_PLL);
+			while ((MRCC->CR & (1<<RCC_PLL_RDY)) == 0);
 			CLR_BIT(MRCC->CFGR,RCC_SW0);
 			SET_BIT(MRCC->CFGR,RCC_SW1);
 
@@ -53,6 +56,7 @@ void MRCC_vInitSysClk(void)
 			MRCC_vEnableClk(RCC_HSE);
 			MRCC_vPLLConf(RCC_HSE);
 			MRCC_vEnableClk(RCC_PLL);
+			while ((MRCC->CR & (1<<RCC_PLL_RDY)) == 0);
 			CLR_BIT(MRCC->CFGR,RCC_SW0);
 			SET_BIT(MRCC->CFGR,RCC_SW1);
 

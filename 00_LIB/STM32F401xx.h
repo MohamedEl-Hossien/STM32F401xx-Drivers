@@ -115,4 +115,29 @@ typedef struct{
 ***********************************************/
 #define MGPIOH              ((GPIOx_RegDef_t*)MGPIOH_BASE_ASSRESS)
 
+
+/************************************** SYSTICK Registers **********************************/
+/**********************************************
+	---- > Macros
+			• Base Address SYSTICK
+***********************************************/
+#define MSYSTICK_BASE_ASSRESS			0xE000E010U
+/**********************************************
+	---- > Structure
+			• General Purpose I/O
+***********************************************/
+typedef struct{
+	volatile u32 CTRL;          /* SysTick control and status register,     	Address offset: 0x0c */
+	volatile u32 LOAD;         	/* SysTick reload value register,           	Address offset: 0x04 */
+	volatile u32 VAL;        	/* SysTick current value register,          	Address offset: 0x0B */
+	volatile u32 CALIB;        	/* SysTick calibration value register,    		Address offset: 0x0c */
+}STK_RegDef_t;
+
+/**********************************************
+	---- > Struct Macros
+			• Base Address GPIOA
+***********************************************/
+#define MSTK				((STK_RegDef_t*)MSYSTICK_BASE_ASSRESS)
+
+
 #endif //STM32F401xx_H

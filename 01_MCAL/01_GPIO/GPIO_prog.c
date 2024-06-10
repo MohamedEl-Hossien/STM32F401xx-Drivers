@@ -42,8 +42,8 @@ void MGPIO_vSetPinVal(u8 Copy_u8PortName,u8 Copy_u8PinName,u8 Copy_u8OutVal)
 {
 	switch(Copy_u8OutVal)
 	{
-	case OUTPUT_PIN_LOW:		CLR_BIT(GPIOx_AStr[Copy_u8PortName]->ODR,Copy_u8PinName); break;
-	case OUTPUT_PIN_HIGH: 	SET_BIT(GPIOx_AStr[Copy_u8PortName]->ODR,Copy_u8PinName); break;
+	case OUTPUT_PIN_LOW:	GPIOx_AStr[Copy_u8PortName]->BSRR=(OUTPUT_PIN_HIGH<<(Copy_u8PinName+16)); break;
+	case OUTPUT_PIN_HIGH: 	GPIOx_AStr[Copy_u8PortName]->BSRR=(OUTPUT_PIN_HIGH<<Copy_u8PinName); break;
 	default: break;
 	}
 }

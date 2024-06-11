@@ -35,7 +35,8 @@ void MRCC_vInitSysClk(void)
 
 			SET_BIT(MRCC->CR,RCC_HSE_BYP);
 
-		#else "Wrong Choice"
+		#else
+			#error "Wrong Choice"
 
 		#endif
 

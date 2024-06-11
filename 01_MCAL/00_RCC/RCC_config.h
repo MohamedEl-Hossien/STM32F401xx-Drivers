@@ -13,7 +13,7 @@
  *	1. RCC_HSI			*
  *	2. RCC_HSE			*
  *	3. RCC_PLL 			*/
-#define RCC_SYS_CLK			RCC_HSIb
+#define RCC_SYS_CLK			RCC_HSE
 
 /*	RCC_HSE OPTIONS:*
  *	1. RCC_HSE_CRYSTAL	*

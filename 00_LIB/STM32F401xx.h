@@ -124,7 +124,7 @@ typedef struct{
 #define MSYSTICK_BASE_ASSRESS			0xE000E010U
 /**********************************************
 	---- > Structure
-			• General Purpose I/O
+			• SysTick timer
 ***********************************************/
 typedef struct{
 	volatile u32 CTRL;          /* SysTick control and status register,     	Address offset: 0x0c */
@@ -135,9 +135,40 @@ typedef struct{
 
 /**********************************************
 	---- > Struct Macros
-			• Base Address GPIOA
+			• Base Address SYSTICK
 ***********************************************/
 #define MSTK				((STK_RegDef_t*)MSYSTICK_BASE_ASSRESS)
+
+/************************************** NVIC Registers **********************************/
+/**********************************************
+	---- > Macros
+			• Base Address NVIC
+***********************************************/
+#define MNVIC_BASE_ASSRESS			0xE000E100U
+/**********************************************
+	---- > Structure
+			• Nested Vectored Interrupt Controller
+***********************************************/
+typedef struct{
+	volatile u32 REVERSED0[64];			//REVERSED
+	volatile u32 ISER[8];       		/* Interrupt set-enable register,     	Address offset: 0x100 */
+	volatile u32 REVERSED1[24];			//REVERSED
+	volatile u32 ICER[8];         		/* Interrupt clear-enable register,     Address offset: 0x180 */
+	volatile u32 REVERSED2[24];			//REVERSED
+	volatile u32 ISPR[8];        		/* Interrupt set-pending register,      Address offset: 0x200 */
+	volatile u32 REVERSED3[24];			//REVERSED
+	volatile u32 ICPR[8];        		/* Interrupt clear-pending register,   	Address offset: 0x280 */
+	volatile u32 REVERSED4[24];			//REVERSED
+	volatile u32 IABR[8];        		/* Interrupt active bit register,   	Address offset: 0x300 */
+	volatile u32 REVERSED5[56];			//REVERSED
+	volatile u32 IPR[60];        		/* Interrupt priority register,    		Address offset: 0x400 */
+}NVIC_RegDef_t;
+
+/**********************************************
+	---- > Struct Macros
+			• Base Address NVIC
+***********************************************/
+#define MNVIC				((NVIC_RegDef_t*)MNVIC_BASE_ASSRESS)
 
 
 #endif //STM32F401xx_H

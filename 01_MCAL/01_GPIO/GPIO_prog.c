@@ -80,3 +80,9 @@ void MGPIO_vSetPortVal(u8 Copy_u8PortName,u32 Copy_u32OutVal)
 	GPIOx_AStr[Copy_u8PortName]->ODR = Copy_u32OutVal;
 }
 
+void MGPIO_vTogglePinVal(u8 Copy_u8PortName,u8 Copy_u8PinName)
+{
+	TOGGLE_BIT(GPIOx_AStr[Copy_u8PortName]->ODR,Copy_u8PinName);
+}
+
+
